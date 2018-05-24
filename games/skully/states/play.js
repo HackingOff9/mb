@@ -1,5 +1,5 @@
 let player;
-let cursorKeys;
+let keys;
 
 let score;
 let scoreText;
@@ -15,6 +15,9 @@ export default {
         this.load.image("skull", "img/skull.png");
         this.load.image("bone", "img/bone.png");
         this.load.image("bomb", "img/bomb.png");
+
+        this.load.audio("coin", "audio/coin.wav");
+        this.load.audio("scream", "audio/scream.wav");
     },
     init() {
         score = 0;
@@ -36,7 +39,7 @@ export default {
         player.setCollideWorldBounds(true);
         player.setMaxVelocity(600);
         
-        cursorKeys = this.input.keyboard.addKeys({
+        keys = this.input.keyboard.addKeys({
             A: Phaser.Input.Keyboard.KeyCodes.A,
             Left: Phaser.Input.Keyboard.KeyCodes.LEFT,
 
@@ -86,12 +89,12 @@ export default {
         const acceleration = 600;
         const initSpeed = 175;
 
-        if (cursorKeys.A.isDown || cursorKeys.Left.isDown) {
+        if (keys.A.isDown || keys.Left.isDown) {
             player.setAccelerationX(-acceleration);
             if (player.body.velocity.x === 0) {
                 player.setVelocityX(-initSpeed);
             }
-        } else if (cursorKeys.D.isDown || cursorKeys.Right.isDown) {
+        } else if (keys.D.isDown || keys.Right.isDown) {
             player.setAccelerationX(acceleration);
             if (player.body.velocity.x === 0) {
                 player.setVelocityX(initSpeed);
@@ -105,17 +108,20 @@ export default {
             bone.destroy(); 
             score++;
             scoreText.setText(score.toString().padStart(3, "0"));
+            this.sound.play("coin");
         });
 
         for (let bone of bones.getChildren()) {
             if (bone.y > 400) {
                 bone.destroy();
+                this.sound.play("scream");
                 this.scene.start("gameover");
                 return;
             }
         }
 
         this.physics.overlap(player, bombs, (player, bomb) => {
+            this.sound.play("scream");
             this.scene.start("gameover");
         });
 
