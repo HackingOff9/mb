@@ -3,6 +3,7 @@ let cursorKeys;
 export default {
     preload() {
         this.load.image("skull", "img/skull.png");
+        this.load.image("instructions", "img/instructions.png");
     },
     create() {
         const G = this.add.graphics();
@@ -17,11 +18,8 @@ export default {
             Enter: Phaser.Input.Keyboard.KeyCodes.ENTER,
         });
 
-        const text = this.add.text(200, 300, "Press space to start", {
-            color: "#0c0221",
-            fontFamily: "Helvetica"
-        });
-        text.setOrigin(0.5, 0);
+        const instructions = this.add.image(200, 300, "instructions");
+        instructions.setOrigin(0.5, 0);
     },
     update() {
         if (cursorKeys.Space.isDown || cursorKeys.Enter.isDown) {
