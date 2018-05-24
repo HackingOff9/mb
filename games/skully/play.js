@@ -26,7 +26,7 @@ export default {
         G.fillStyle(0xEAEAEA);
         G.fillRect(0, 0, 400, 400);
 
-        scoreText = this.add.text(350, 10, score, {
+        scoreText = this.add.text(350, 10, score.toString().padStart(3, "0"), {
             color: "#0c0221", 
             fontFamily: "Helvetica",
         });
@@ -104,7 +104,7 @@ export default {
         this.physics.overlap(player, bones, (player, bone) => {
             bone.destroy(); 
             score++;
-            scoreText.setText(score);
+            scoreText.setText(score.toString().padStart(3, "0"));
         });
 
         for (let bone of bones.getChildren()) {
