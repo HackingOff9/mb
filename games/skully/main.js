@@ -1,13 +1,11 @@
-import intro from "./intro.js";
-import play from "./play.js";
-import gameover from "./gameover.js";
+import intro from "./states/intro.js";
+import play from "./states/play.js";
+import gameover from "./states/gameover.js";
 
 const config = {
-    type: Phaser.AUTO,
     pixelArt: true,
     width: 400,
     height: 400,
-    parent: "#game",
     physics: {
         default: "arcade",
     },

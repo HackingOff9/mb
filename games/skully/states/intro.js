@@ -1,4 +1,4 @@
-let cursorKeys;
+let keys;
         
 export default {
     preload() {
@@ -13,16 +13,18 @@ export default {
         const skull = this.add.image(200, 200, "skull");
         skull.setScale(5);
 
-        cursorKeys = this.input.keyboard.addKeys({
+        keys = this.input.keyboard.addKeys({
             Space: Phaser.Input.Keyboard.KeyCodes.SPACE,
             Enter: Phaser.Input.Keyboard.KeyCodes.ENTER,
         });
 
         const instructions = this.add.image(200, 300, "instructions");
+
+        // This centers the instructions images
         instructions.setOrigin(0.5, 0);
     },
     update() {
-        if (cursorKeys.Space.isDown || cursorKeys.Enter.isDown) {
+        if (keys.Space.isDown || keys.Enter.isDown) {
             this.scene.start("main");
         }
     }
